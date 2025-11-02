@@ -1,0 +1,52 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1.5rem;
+  border: 1px solid $neutral300;
+  border-radius: 1rem;
+  width: 614px;
+  max-width: 614px;
+  max-height: 193px;
+  padding: 1.25rem;
+  .amount {
+    &Wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    &Label {
+      font-size: 0.75rem;
+      color: $neutral950;
+      font-weight: 600;
+    }
+    &Input {
+      border-radius: 0.5rem;
+      background-color: $neutral50;
+      padding: 0.75rem 0;
+      border: 1px solid $neutral300;
+      font-size: 0.875rem;
+      text-align: center;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+      &:focus {
+        outline: none;
+        border-color: $neutral500;
+        box-shadow: 0 0 0 2px rgba($neutral500, 0.2);
+        background-color: #fff;
+      }
+    }
+  }
+  .currencies {
+    display: flex;
+    column-gap: 0.75rem;
+    align-items: flex-end;
+  }
+  .switch {
+    background: center / 18px no-repeat url("@/assets/switch-icon.svg");
+    background-size: 18px;
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    border: none;
+  }
+}

@@ -1,35 +1,62 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Main } from "./pages/Main";
 
 function App() {
-  const [count, setCount] = useState(0)
+  // const [currenciesFrom, setCurrenciesFrom] = useState("USD");
+  // const [currenciesTo, setCurrenciesTo] = useState("EUR");
+  // const [amount, setAmount] = useState<string>("0");
+  // const [exchangeRate, setExchangeRate] = useState(0);
+  // const [inverseRate, setInverseRate] = useState(0);
+  // const currencies = useCurrenciesList();
+  // const [result, setResult] = useState(0);
+  // const [error, setError] = useState(null);
+  // const [loading, setLoading] = useState(false);
+
+  // useEffect(() => {
+  //   if (!amount) return;
+
+  //   const timeout = setTimeout(() => {
+  //     const fetchData = async () => {
+  //       try {
+  //         const response = await axios.get<Currency>(
+  //           "https://api.fxratesapi.com/latest",
+  //           {
+  //             params: {
+  //               api_key: import.meta.env.VITE_API_KEY,
+  //               amount,
+  //               base: currenciesFrom,
+  //             },
+  //           }
+  //         );
+  //         const { rates } = response.data;
+  //         setExchangeRate(rates[currenciesTo]);
+  //         setInverseRate(
+  //           Number(amount) * (rates[currenciesFrom] / rates[currenciesTo])
+  //         );
+  //       } catch (error) {
+  //         console.error("Ошибка при получении данных:", error);
+  //       }
+  //     };
+
+  //     fetchData();
+  //   }, 250);
+
+  //   return () => clearTimeout(timeout);
+  // }, [amount, currenciesFrom, currenciesTo, isOnline]);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
+    <section>
+      <Main />
+      {/* 
+        <p>Result:</p>
         <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
+          Exchange Rate {amount} {currenciesFrom} = {exchangeRate}{" "}
+          {currenciesTo}
         </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+        <p>
+          Inverse Rate {amount} {currenciesTo} = {inverseRate} {currenciesFrom}
+        </p> */}
+    </section>
+  );
 }
 
-export default App
+export default App;

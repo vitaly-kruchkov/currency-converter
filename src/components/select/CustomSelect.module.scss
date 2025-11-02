@@ -1,0 +1,216 @@
+.wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+  max-width: 254px;
+}
+
+.label {
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.select {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid $neutral300;
+  border-radius: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  background: $neutral50;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+
+  &:hover {
+    border-color: #9ca3af;
+  }
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  row-gap: 0.125rem;
+}
+
+.optionSelected {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: $neutral950;
+}
+
+.icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid $blue200;
+  background: $blue50;
+  color: $blue700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 400;
+  font-size: 0.75rem;
+}
+
+.code {
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.name {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: $neutral500;
+}
+
+.dropdown {
+  background: white;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.75rem;
+  max-height: 439px;
+  overflow: visible;
+  .info {
+    font-weight: 500;
+    color: $neutral500;
+    font-size: 0.875rem;
+  }
+  &Title {
+    display: flex;
+    justify-content: space-between;
+    & > :first-child {
+      font-size: 1rem;
+      font-weight: 600;
+      color: $neutral950;
+    }
+  }
+  .close {
+    border: none;
+    background: center / cover no-repeat url("@/assets/x-mark-icon.svg");
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    border: none;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+.searchInput {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 12px;
+    width: 18px;
+    height: 18px;
+    background: url("@/assets/search-icon.svg") no-repeat center / contain;
+    pointer-events: none;
+  }
+}
+
+.input {
+  width: 100%;
+  padding: 0.5rem 0.5rem 0.5rem 2.375rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+  &:focus {
+    border-color: $blue400;
+    box-shadow: 0 0 0 3px rgba(#dbeafe, 0.5);
+  }
+}
+
+.options {
+  overflow-y: auto;
+  max-height: 300px;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 0.5rem;
+  width: 100%;
+  border: none;
+  background: white;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.15s ease;
+
+  &:hover {
+    background: #f3f4f6;
+  }
+
+  &.active {
+    background: $neutral100;
+    border-radius: 0.5rem;
+  }
+  .check {
+    margin-left: auto;
+  }
+}
+
+.noResults {
+  padding: 1rem;
+  text-align: center;
+  color: #9ca3af;
+}
+
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 15;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+
+  &.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+}
+
+.modalContent {
+  background: white;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  width: 440px;
+  max-width: 90%;
+  max-height: 439px;
+  overflow-y: auto;
+  animation: fadeInUp 0.25s ease;
+
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.75rem;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

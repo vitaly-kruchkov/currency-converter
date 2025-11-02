@@ -1,0 +1,60 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1.5rem;
+  padding: 1.25rem;
+  border: 1px solid $neutral300;
+  border-radius: 1rem;
+  max-width: 336px;
+  max-height: 318px;
+  .header {
+    color: $neutral950;
+    font-size: 1.125rem;
+    font-weight: 600;
+  }
+  .info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 0.25rem;
+  }
+  .inverse {
+    color: $neutral950;
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+  .exchange {
+    font-weight: 500;
+    font-size: 0.75rem;
+  }
+  .divider {
+    width: 100%;
+    border-top: 1px solid $neutral200;
+  }
+  .course {
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    &-row {
+      display: flex;
+      justify-content: space-between;
+    }
+    &-title {
+      color: $neutral500;
+    }
+    &-text {
+      color: $neutral950;
+    }
+  }
+  .footer {
+    padding: 0.5rem 0.75rem;
+    color: $neutral500;
+    font-size: 0.75rem;
+    font-weight: 400;
+    background-color: $neutral50;
+    border-radius: 0.75rem;
+    text-align: center;
+  }
+}
