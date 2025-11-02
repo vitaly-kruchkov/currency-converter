@@ -76,6 +76,7 @@
   flex-direction: column;
   row-gap: 0.75rem;
   max-height: 439px;
+  height: 399px;
   overflow: visible;
   .info {
     font-weight: 500;
@@ -213,4 +214,9 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+.highlight {
+  background: $neutral300;
+  border-radius: 0.5rem;
 }
