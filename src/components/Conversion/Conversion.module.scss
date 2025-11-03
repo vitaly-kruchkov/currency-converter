@@ -50,3 +50,16 @@
     border: none;
   }
 }
+
+@media (max-width: $lg) {
+  .container {
+    width: 100%;
+    max-width: 100%;
+    max-height: max-content;
+    .currencies {
+      flex-direction: column;
+      align-items: center;
+      row-gap: 0.75rem;
+    }
+  }
+}

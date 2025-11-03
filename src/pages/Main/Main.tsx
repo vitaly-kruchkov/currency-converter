@@ -19,18 +19,16 @@ export const Main: React.FC = () => {
   const amountNumber = useMemo(() => parseFloat(amount) || 0, [amount]);
   const debouncedAmount = useDebounce(amountNumber, 500);
 
-  const { result, loading, error } = useConversionRate(
+  const { result, refetch, loading, error } = useConversionRate(
     currenciesFrom,
     currenciesTo,
     debouncedAmount
   );
 
-  console.log(result);
-
   return (
     <section className={styles.container}>
       <Header />
-      <Status />
+      <Status onRefresh={refetch} />
       <div className={styles.main}>
         <Conversion
           amount={amount}

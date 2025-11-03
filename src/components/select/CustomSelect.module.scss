@@ -220,3 +220,21 @@
   background: $neutral300;
   border-radius: 0.5rem;
 }
+
+@media (max-width: $lg) {
+  .wrapper {
+    max-width: 100%;
+  }
+  .modalContent {
+    padding: 1rem;
+    height: 541px;
+    max-height: 541px;
+  }
+  .dropdown {
+    height: 541px;
+    max-height: 541px;
+  }
+  .options {
+    max-height: 388px;
+  }
+}

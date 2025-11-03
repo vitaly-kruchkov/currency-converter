@@ -11,7 +11,9 @@ export default defineConfig({
         additionalData: `@use "${path.resolve(
           __dirname,
           "src/styles/colors"
-        )}" as *;`,
+        )}" as *;
+        @use "${path.resolve(__dirname, "src/styles/breakpoints")}" as *;
+        `,
       },
     },
   },

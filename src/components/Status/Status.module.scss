@@ -50,3 +50,10 @@
     height: 12px;
   }
 }
+
+@media (max-width: $lg) {
+  .container {
+    flex-direction: column;
+    row-gap: 1rem;
+  }
+}
