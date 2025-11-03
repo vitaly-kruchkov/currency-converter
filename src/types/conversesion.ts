@@ -8,3 +8,9 @@ export interface CacheData {
   data: CurrencyRates;
   timestamp: number;
 }
+
+export interface RateResult {
+  rate: number;
+  inverseRate: number;
+  converted: number;
+}

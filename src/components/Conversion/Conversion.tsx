@@ -10,6 +10,7 @@ interface ConversionProps {
   setCurrenciesFrom: (val: string) => void;
   setCurrenciesTo: (val: string) => void;
   currencies: CurrencyOption[];
+  onSwap: () => void;
 }
 
 export const Conversion: React.FC<ConversionProps> = memo(
@@ -21,24 +22,14 @@ export const Conversion: React.FC<ConversionProps> = memo(
     setCurrenciesFrom,
     setCurrenciesTo,
     currencies,
+    onSwap,
   }) => {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       let val = e.target.value;
 
-      // // Разрешаем только цифры, запятую и точку
-      // val = val.replace(/[^0-9.,]/g, "");
-
-      // // Заменяем запятую на точку
-      // val = val.replace(",", ".");
-
       val = val.replace(/(?!^.*\..*)\./g, ".");
 
       setAmount(val);
-    };
-
-    const handleSwap = () => {
-      setCurrenciesFrom(currenciesTo);
-      setCurrenciesTo(currenciesFrom);
     };
 
     return (
@@ -64,11 +55,7 @@ export const Conversion: React.FC<ConversionProps> = memo(
             options={currencies}
             label="From"
           />
-          <button
-            onClick={handleSwap}
-            type="button"
-            className={styles.switch}
-          />
+          <button onClick={onSwap} type="button" className={styles.switch} />
           <CurrencySelect
             value={currenciesTo}
             onChange={setCurrenciesTo}

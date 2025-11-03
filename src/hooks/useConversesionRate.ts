@@ -6,6 +6,7 @@ import { readFromCache, writeToCache } from "@/utils/cache";
 import type { CurrencyOption } from "@/components/select";
 import { SYMBOLS } from "@/constants/symbols";
 import { NAMES } from "@/constants/names";
+import { calculateRate } from "@/utils/rate";
 
 export const useConversionRate = (from: string, to: string, amount: number) => {
   const [currencies, setCurrencies] = useState<CurrencyOption[]>([]);
@@ -62,43 +63,22 @@ export const useConversionRate = (from: string, to: string, amount: number) => {
 
     try {
       if (!isOnline && isCacheValid && cache.data) {
-        const { base, rates } = cache.data;
-        const rateFrom = from === base ? 1 : rates[from];
-        const rateTo = to === base ? 1 : rates[to];
-        const rate = rateTo / rateFrom;
-
-        setResult({
-          rate,
-          inverseRate: amount * (1 / rate),
-          converted: amount * rate,
-        });
+        setResult(
+          calculateRate(cache.data.base, cache.data.rates, from, to, amount)
+        );
         return;
       }
 
-      const res = await axios.get("https://api.fxratesapi.com/latest", {
+      const { data } = await axios.get("https://api.fxratesapi.com/latest", {
         params: {
           api_key: import.meta.env.VITE_API_KEY,
           base: from,
         },
       });
 
-      writeToCache({ data: res.data, timestamp: now });
+      writeToCache({ data: data, timestamp: now });
 
-      const { rates, base } = res.data;
-      const rateFrom = from === base ? 1 : rates[from];
-      const rateTo = to === base ? 1 : rates[to];
-
-      if (rateFrom === undefined || rateTo === undefined) {
-        throw new Error("Invalid currency code");
-      }
-
-      const rate = rateTo / rateFrom;
-
-      setResult({
-        rate,
-        inverseRate: amount * (1 / rate),
-        converted: amount * rate,
-      });
+      setResult(calculateRate(data.base, data.rates, from, to, amount));
     } catch (e: unknown) {
       if (axios.isAxiosError(e)) {
         setError(e.response?.data?.message || e.message);
@@ -109,16 +89,9 @@ export const useConversionRate = (from: string, to: string, amount: number) => {
       }
 
       if (isCacheValid && cache?.data) {
-        const { base, rates } = cache.data;
-        const rateFrom = from === base ? 1 : rates[from];
-        const rateTo = to === base ? 1 : rates[to];
-        const rate = rateTo / rateFrom;
-
-        setResult({
-          rate,
-          inverseRate: amount * (1 / rate),
-          converted: amount * rate,
-        });
+        setResult(
+          calculateRate(cache.data.base, cache.data.rates, from, to, amount)
+        );
       }
     } finally {
       setLoading(false);

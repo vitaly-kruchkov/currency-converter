@@ -1,12 +1,22 @@
-import { Conversion } from "@/components/Conversion";
-import { ConversionResult } from "@/components/ConversionResult";
 import { Header } from "@/components/Header";
 import { Status } from "@/components/Status";
 import styles from "./Main.module.scss";
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useDebounce } from "@/hooks/useDebounce";
 import { useConversionRate } from "@/hooks/useConversesionRate";
 import type { NAMES } from "@/constants/names";
+import { lazy, Suspense } from "react";
+
+const Conversion = lazy(() =>
+  import("@/components/Conversion/index").then((module) => ({
+    default: module.Conversion,
+  }))
+);
+const ConversionResult = lazy(() =>
+  import("@/components/ConversionResult/index").then((module) => ({
+    default: module.ConversionResult,
+  }))
+);
 
 export const Main: React.FC = () => {
   const [currenciesFrom, setCurrenciesFrom] =
@@ -23,28 +33,36 @@ export const Main: React.FC = () => {
     debouncedAmount
   );
 
+  const handleSwap = useCallback(() => {
+    setCurrenciesFrom(currenciesTo);
+    setCurrenciesTo(currenciesFrom);
+  }, [currenciesFrom, currenciesTo]);
+
   return (
     <section className={styles.container}>
       <Header />
       <Status onRefresh={refetch} />
       <div className={styles.main}>
-        <Conversion
-          amount={amount}
-          setAmount={setAmount}
-          currenciesFrom={currenciesFrom}
-          currenciesTo={currenciesTo}
-          setCurrenciesFrom={setCurrenciesFrom}
-          setCurrenciesTo={setCurrenciesTo}
-          currencies={currencies}
-        />
-        <ConversionResult
-          amount={amount}
-          result={result}
-          loading={loading}
-          error={error}
-          currenciesFrom={currenciesFrom}
-          currenciesTo={currenciesTo}
-        />
+        <Suspense fallback={<div>Loading...</div>}>
+          <Conversion
+            amount={amount}
+            setAmount={setAmount}
+            currenciesFrom={currenciesFrom}
+            currenciesTo={currenciesTo}
+            setCurrenciesFrom={setCurrenciesFrom}
+            setCurrenciesTo={setCurrenciesTo}
+            currencies={currencies}
+            onSwap={handleSwap}
+          />
+          <ConversionResult
+            amount={amount}
+            result={result}
+            loading={loading}
+            error={error}
+            currenciesFrom={currenciesFrom}
+            currenciesTo={currenciesTo}
+          />
+        </Suspense>
       </div>
     </section>
   );
