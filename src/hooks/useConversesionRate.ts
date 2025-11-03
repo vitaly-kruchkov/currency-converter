@@ -3,8 +3,12 @@ import axios from "axios";
 import { useNetworkStatus } from "./useNetworkStatus";
 import { CACHE_TTL } from "@/constants/cache";
 import { readFromCache, writeToCache } from "@/utils/cache";
+import type { CurrencyOption } from "@/components/select";
+import { SYMBOLS } from "@/constants/symbols";
+import { NAMES } from "@/constants/names";
 
 export const useConversionRate = (from: string, to: string, amount: number) => {
+  const [currencies, setCurrencies] = useState<CurrencyOption[]>([]);
   const [result, setResult] = useState<{
     rate: number;
     inverseRate: number;
@@ -18,6 +22,33 @@ export const useConversionRate = (from: string, to: string, amount: number) => {
   const [error, setError] = useState<string | null>(null);
 
   const isOnline = useNetworkStatus();
+
+  useEffect(() => {
+    const fetchCurrencies = async () => {
+      try {
+        const res = await axios.get("https://api.fxratesapi.com/latest", {
+          params: {
+            api_key: import.meta.env.VITE_API_KEY,
+          },
+        });
+
+        const rates = res.data.rates;
+        const codes = Object.keys(rates);
+
+        const options: CurrencyOption[] = codes.map((code) => ({
+          code,
+          symbol: SYMBOLS[code] ?? code,
+          name: NAMES[code] ?? code,
+        }));
+
+        setCurrencies(options.sort((a, b) => a.code.localeCompare(b.code)));
+      } catch (e) {
+        console.error("Failed to fetch currencies", e);
+      }
+    };
+
+    fetchCurrencies();
+  }, []);
 
   const fetchRate = useCallback(async () => {
     if (!amount || isNaN(amount)) return;
@@ -102,5 +133,5 @@ export const useConversionRate = (from: string, to: string, amount: number) => {
     if (isOnline) fetchRate();
   }, [fetchRate, isOnline]);
 
-  return { result, loading, error, refetch: fetchRate };
+  return { result, loading, error, refetch: fetchRate, currencies };
 };

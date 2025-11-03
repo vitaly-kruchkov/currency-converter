@@ -40,6 +40,15 @@
   column-gap: 0.25rem;
   border-radius: 0.5rem;
   padding: 0.25rem 0.5rem;
+  &:hover {
+    cursor: pointer;
+    border-color: $blue400;
+    background-color: $blue100;
+  }
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
   &-text {
     color: $blue700;
     font-size: 0.75rem;

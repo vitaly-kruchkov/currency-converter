@@ -5,7 +5,7 @@ import refresh from "@/assets/refresh-rounded.svg";
 import clsx from "clsx";
 import { useNetworkStatus } from "@/hooks/useNetworkStatus";
 import { readFromCache } from "@/utils/cache";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDebounce } from "@/hooks/useDebounce";
 
 interface StatusProps {
@@ -36,9 +36,9 @@ export const Status: React.FC<StatusProps> = ({ onRefresh }) => {
     }
   }, [debouncedRefreshTrigger, onRefresh]);
 
-  const handleRefresh = useCallback(() => {
+  const handleRefresh = () => {
     setRefreshTrigger((prev) => prev + 1);
-  }, []);
+  };
 
   return (
     <section className={styles.container}>
@@ -64,7 +64,7 @@ export const Status: React.FC<StatusProps> = ({ onRefresh }) => {
         type="button"
         className={styles.refresh}
         onClick={handleRefresh}
-        disabled={debouncedRefreshTrigger > 0 || !isOnline}>
+        disabled={!isOnline}>
         <img src={refresh} alt="refresh" className={styles["refresh-icon"]} />
         <p className={styles["refresh-text"]}>Refresh rates</p>
       </button>
