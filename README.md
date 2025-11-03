@@ -38,6 +38,7 @@ npm run dev
 
 ### 3. Architecture & Key Decisions
 
+```
 src/
 │
 ├── components/
@@ -59,8 +60,8 @@ src/
 │
 ├── constants/
 │ └── cache.ts
-│ └── names.ts  
-│ └── symbols.ts  
+│ └── names.ts
+│ └── symbols.ts
 │
 ├── hooks/
 │ └── useConversesionRate.ts
@@ -93,6 +94,7 @@ src/
 │
 ├── App.tsx
 └── main.tsx
+```
 
 ### 4. Architecture & Key Decisions
 
