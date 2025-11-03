@@ -1,6 +1,8 @@
 import styles from "./Conversion.module.scss";
 import { memo } from "react";
-import CurrencySelect, { type CurrencyOption } from "../select/CustomSelect";
+import CurrencySelect, {
+  type CurrencyOption,
+} from "../CustomSelect/CustomSelect";
 
 interface ConversionProps {
   amount: string;

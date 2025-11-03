@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNetworkStatus } from "./useNetworkStatus";
 import { CACHE_TTL } from "@/constants/cache";
 import { readFromCache, writeToCache } from "@/utils/cache";
-import type { CurrencyOption } from "@/components/select";
+import type { CurrencyOption } from "@/components/CustomSelect";
 import { SYMBOLS } from "@/constants/symbols";
 import { NAMES } from "@/constants/names";
 import { calculateRate } from "@/utils/rate";
